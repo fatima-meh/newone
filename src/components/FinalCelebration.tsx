@@ -259,7 +259,7 @@ export function FinalCelebration({
       )}
 
       {/* Main celebration */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen pt-8 pb-8 px-4 -translate-y-3 md:-translate-y-5">
+      <div className="relative z-10 flex flex-col items-center justify-start min-h-screen pt-[17vh] sm:pt-[15vh] md:pt-[14vh] pb-8 px-4">
         <div
           className={`text-center transition-all duration-1000 ${
             celebrationReady
@@ -268,14 +268,14 @@ export function FinalCelebration({
           }`}
         >
           <p
-            className="font-hand text-lg md:text-xl text-sky-500 mb-1"
+            className="font-hand text-base md:text-xl text-sky-500 mb-1"
             style={{ fontWeight: 600 }}
           >
             The candles are out...
           </p>
 
           <h1
-            className="font-hand text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-blush-500 text-center mb-2 text-shadow-soft animate-bounce-in leading-tight"
+            className="font-hand text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-blush-500 text-center mb-2 text-shadow-soft animate-bounce-in leading-tight max-w-5xl"
             style={{
               fontWeight: 700,
               textShadow: '0 2px 8px rgba(0,0,0,0.1)',
@@ -286,7 +286,7 @@ export function FinalCelebration({
 
           {cakeTitle && (
             <p
-              className="font-hand text-xl md:text-2xl text-sky-500 text-center mb-3 animate-fade-in"
+              className="font-hand text-lg md:text-2xl text-sky-500 text-center mb-4 animate-fade-in"
               style={{ fontWeight: 600 }}
             >
               {cakeTitle}
@@ -301,7 +301,7 @@ export function FinalCelebration({
               ? 'opacity-100 scale-100'
               : 'opacity-0 scale-95'
           }`}
-          style={{ height: 'min(52vh, 420px)' }}
+          style={{ height: 'min(50vh, 410px)' }}
         >
           {openedGifts.slice(0, 6).map((giftType, i) => {
             const pos = giftPositions[i];
@@ -348,7 +348,7 @@ export function FinalCelebration({
           </div>
         </div>
 
-        <p className="font-hand text-xl md:text-2xl text-blush-500 text-center animate-fade-in">
+        <p className="font-hand text-lg md:text-2xl text-blush-500 text-center animate-fade-in mt-1">
           A little bit of magic, just for you ✦
         </p>
 
