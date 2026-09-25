@@ -1,7 +1,7 @@
 import React from 'react';
 
 // ============ CAKE TYPES ============
-export type FrostingType = 'vanilla' | 'strawberry' | 'blueberry' | 'cream';
+export type FrostingType = 'vanilla' | 'strawberry' | 'blueberry' | 'chocolate';
 export type ToppingType = 'strawberry' | 'cherry' | 'sprinkles' | 'flower' | 'candle' | 'star' | 'heart' | 'bow';
 export interface ToppingPlacement {
   type: ToppingType;
@@ -14,7 +14,7 @@ const frostingColors: Record<FrostingType, { main: string; shadow: string; drip:
   vanilla: { main: '#fdf8ee', shadow: '#f5e6c8', drip: '#faf0dc' },
   strawberry: { main: '#fbe5ea', shadow: '#f0b4c4', drip: '#f7d0da' },
   blueberry: { main: '#dceaf6', shadow: '#a8c5e6', drip: '#c4d9ee' },
-  cream: { main: '#fefcf8', shadow: '#f5e6c8', drip: '#fdf8ee' },
+  chocolate: { main: '#9a6a43', shadow: '#70482f', drip: '#825735' },
 };
 
 // ============ CANDLE (individual) ============
@@ -154,12 +154,15 @@ export function BirthdayCake({
   onCandleClick?: (index: number) => void;
 }) {
   const fc = frostingColors[frosting];
+  // Candles sit on the visible top surface of the cake.
+  // The old positions were negative, which placed the candles outside the SVG viewBox
+  // and made them impossible to click on the wish screen.
   const candlePositions = [
-    { x: 70, y: -5 },
-    { x: 130, y: -5 },
-    { x: 100, y: -15 },
-    { x: 50, y: -8 },
-    { x: 150, y: -8 },
+    { x: 70, y: 34 },
+    { x: 130, y: 34 },
+    { x: 100, y: 24 },
+    { x: 50, y: 31 },
+    { x: 150, y: 31 },
   ];
 
   return (
@@ -208,7 +211,24 @@ export function BirthdayCake({
 
       {/* Candles */}
       {showCandles && candlePositions.map((pos, i) => (
-        <g key={`candle-${i}`} onClick={(e) => { e.stopPropagation(); onCandleClick?.(i); }} style={{ cursor: 'pointer' }}>
+        <g
+          key={`candle-${i}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            onCandleClick?.(i);
+          }}
+          style={{ cursor: 'pointer' }}
+          role="button"
+          aria-label={`Candle ${i + 1}`}
+        >
+          {/* Larger invisible hit area makes the small illustrated candle easy to tap. */}
+          <rect
+            x={pos.x - 9}
+            y={pos.y - 16}
+            width="18"
+            height="34"
+            fill="transparent"
+          />
           <rect x={pos.x - 2} y={pos.y} width="4" height="14" fill={i % 2 === 0 ? '#c4a9e0' : '#a8c5e6'} stroke="#8a6ba8" strokeWidth="0.5" rx="1" />
           <line x1={pos.x - 1} y1={pos.y + 3} x2={pos.x + 1} y2={pos.y + 3} stroke="#8a6ba8" strokeWidth="0.3" opacity="0.4" />
           <line x1={pos.x - 1} y1={pos.y + 7} x2={pos.x + 1} y2={pos.y + 7} stroke="#8a6ba8" strokeWidth="0.3" opacity="0.4" />
