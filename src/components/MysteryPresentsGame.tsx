@@ -16,13 +16,11 @@ interface PresentDef {
 const presentDefs: PresentDef[] = [
   { id: 0, color: '#f0b4c4', ribbonColor: '#fbe3b0', pattern: 'dots', giftType: 'lego' },
   { id: 1, color: '#a8c5e6', ribbonColor: '#f0b4c4', pattern: 'stripes', giftType: 'car' },
-  { id: 2, color: '#fbe3b0', ribbonColor: '#c4a9e0', pattern: 'floral', giftType: 'art' },
-  { id: 3, color: '#c4dfa8', ribbonColor: '#f0b4c4', pattern: 'stars', giftType: 'watch' },
-  { id: 4, color: '#d8c6ee', ribbonColor: '#fbe3b0', pattern: 'dots', giftType: 'phone' },
-  { id: 5, color: '#f7d0da', ribbonColor: '#a8c5e6', pattern: 'stripes', giftType: 'chocolates' },
-  { id: 6, color: '#c4d9ee', ribbonColor: '#f0b4c4', pattern: 'floral', giftType: 'headphones' },
-  { id: 7, color: '#fdf0d4', ribbonColor: '#c4dfa8', pattern: 'stars', giftType: 'plush' },
-  { id: 8, color: '#ddeed0', ribbonColor: '#d8c6ee', pattern: 'dots', giftType: 'ultimate', isUltimate: true },
+  { id: 2, color: '#c4dfa8', ribbonColor: '#f0b4c4', pattern: 'stars', giftType: 'watch' },
+  { id: 3, color: '#d8c6ee', ribbonColor: '#fbe3b0', pattern: 'dots', giftType: 'phone' },
+  { id: 4, color: '#f7d0da', ribbonColor: '#a8c5e6', pattern: 'stripes', giftType: 'chocolates' },
+  { id: 5, color: '#c4d9ee', ribbonColor: '#f0b4c4', pattern: 'floral', giftType: 'headphones' },
+  { id: 6, color: '#ddeed0', ribbonColor: '#d8c6ee', pattern: 'dots', giftType: 'ultimate', isUltimate: true },
 ];
 
 export function MysteryPresentsGame({ onComplete }: { onComplete: (openedGifts: GiftType[]) => void }) {
