@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { BirthdayCake, FrostingSample, ToppingIcon, FrostingType, ToppingType, ToppingPlacement } from './Cake';
 import { FrostingButton } from './FrostingButton';
 import { Confetti, FloatingElements } from './FloatingElements';
-import { Cloud, Flower, Butterfly, Sparkle, Bunting } from './Illustrations';
+import { Cloud, Butterfly, Sparkle, Bunting } from './Illustrations';
 
 const frostingOptions: { type: FrostingType; label: string }[] = [
   { type: 'vanilla', label: 'Vanilla' },
   { type: 'strawberry', label: 'Strawberry' },
   { type: 'blueberry', label: 'Blueberry' },
-  { type: 'cream', label: 'Cream' },
+  { type: 'chocolate', label: 'Chocolate' },
 ];
 
 const toppingOptions: { type: ToppingType; label: string }[] = [
@@ -38,7 +38,11 @@ interface CakeState {
   toppings: ToppingPlacement[];
 }
 
-export function CakeDecoratingGame({ onComplete }: { onComplete: (cake: CakeState, title: string) => void }) {
+export function CakeDecoratingGame({
+  onComplete,
+}: {
+  onComplete: (cake: CakeState, title: string) => void;
+}) {
   const [frosting, setFrosting] = useState<FrostingType>('vanilla');
   const [toppings, setToppings] = useState<ToppingPlacement[]>([]);
   const [selectedTopping, setSelectedTopping] = useState<ToppingType>('strawberry');
@@ -52,7 +56,7 @@ export function CakeDecoratingGame({ onComplete }: { onComplete: (cake: CakeStat
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-    // Only allow toppings on the cake area (roughly y 10-60%)
+    // Only allow toppings on the cake area.
     if (y < 10 || y > 60) return;
 
     const newTopping: ToppingPlacement = {
@@ -61,6 +65,7 @@ export function CakeDecoratingGame({ onComplete }: { onComplete: (cake: CakeStat
       y: Math.max(5, Math.min(55, y)),
       id: `topping-${Date.now()}-${Math.random()}`,
     };
+
     setToppings((prev) => [...prev, newTopping]);
   };
 
@@ -69,6 +74,7 @@ export function CakeDecoratingGame({ onComplete }: { onComplete: (cake: CakeStat
     const title = cakeTitles[Math.floor(Math.random() * cakeTitles.length)];
     setCakeTitle(title);
     setPresenting(true);
+
     setTimeout(() => {
       onComplete({ frosting, toppings }, title);
     }, 2500);
@@ -88,13 +94,19 @@ export function CakeDecoratingGame({ onComplete }: { onComplete: (cake: CakeStat
       <div className="absolute top-[5%] left-[5%] w-28 animate-drift-slow opacity-40">
         <Cloud className="w-full" />
       </div>
+
       <div className="absolute top-[8%] right-[5%] w-32 animate-drift-slower opacity-40">
         <Cloud className="w-full" />
       </div>
+
       <div className="absolute top-[30%] left-[3%] w-10 animate-flutter opacity-50">
         <Butterfly className="w-full" color="#f0b4c4" />
       </div>
-      <div className="absolute top-[40%] right-[3%] w-8 animate-flutter opacity-50" style={{ animationDelay: '1s' }}>
+
+      <div
+        className="absolute top-[40%] right-[3%] w-8 animate-flutter opacity-50"
+        style={{ animationDelay: '1s' }}
+      >
         <Butterfly className="w-full" color="#c4a9e0" />
       </div>
 
@@ -107,36 +119,60 @@ export function CakeDecoratingGame({ onComplete }: { onComplete: (cake: CakeStat
       {showConfetti && <Confetti count={40} burst />}
 
       {/* Title */}
-      <h2 className="font-hand text-3xl md:text-5xl text-sky-500 text-center mb-1 text-shadow-soft" style={{ fontWeight: 600 }}>
+      <h2
+        className="font-hand text-3xl md:text-5xl text-sky-500 text-center mb-1 text-shadow-soft"
+        style={{ fontWeight: 600 }}
+      >
         Before the party can begin...
       </h2>
-      <p className="font-body text-base md:text-lg text-cream-500 text-center mb-4">
+
+      <p className="font-body text-base md:text-lg text-cream-500 text-center mb-5">
         we need the perfect cake! Tap the cake to add your selected topping.
       </p>
 
-      {/* Cake display */}
-      <div className="relative w-64 md:w-80 mb-4">
-        <div className={`absolute inset-0 ${presenting ? 'animate-bounce-in' : ''}`}>
+      {/* Cake display
+          The previous wrapper was absolutely positioning the cake inside a
+          zero-height container. That caused the frosting/topping controls to
+          overlap the cake. This wrapper keeps the cake's 200:180 SVG ratio
+          in normal document flow. */}
+      <div className="relative w-60 sm:w-64 md:w-72 lg:w-80 aspect-[200/180] mb-5 shrink-0">
+        <div
+          className={`absolute inset-0 flex items-center justify-center ${
+            presenting ? 'animate-bounce-in' : ''
+          }`}
+        >
           <BirthdayCake
             frosting={frosting}
             toppings={toppings}
             onClick={presenting ? undefined : handleCakeClick}
-            className="w-full h-auto cursor-pointer"
+            className="w-full h-full cursor-pointer"
           />
         </div>
-        {/* Sparkles when presenting */}
+
         {presenting && (
           <>
             <div className="absolute -top-2 -left-2 w-6 animate-sparkle">
               <Sparkle className="w-full" />
             </div>
-            <div className="absolute -top-4 right-0 w-5 animate-sparkle" style={{ animationDelay: '0.3s' }}>
+
+            <div
+              className="absolute -top-4 right-0 w-5 animate-sparkle"
+              style={{ animationDelay: '0.3s' }}
+            >
               <Sparkle className="w-full" />
             </div>
-            <div className="absolute top-1/2 -left-4 w-4 animate-sparkle" style={{ animationDelay: '0.5s' }}>
+
+            <div
+              className="absolute top-1/2 -left-4 w-4 animate-sparkle"
+              style={{ animationDelay: '0.5s' }}
+            >
               <Sparkle className="w-full" />
             </div>
-            <div className="absolute top-1/3 -right-4 w-4 animate-sparkle" style={{ animationDelay: '0.7s' }}>
+
+            <div
+              className="absolute top-1/3 -right-4 w-4 animate-sparkle"
+              style={{ animationDelay: '0.7s' }}
+            >
               <Sparkle className="w-full" />
             </div>
           </>
@@ -144,27 +180,51 @@ export function CakeDecoratingGame({ onComplete }: { onComplete: (cake: CakeStat
       </div>
 
       {presenting ? (
-        <div className="text-center animate-fade-in">
-          <h3 className="font-hand text-3xl md:text-4xl text-blush-500 mb-2" style={{ fontWeight: 700 }}>
+        <div className="text-center animate-fade-in max-w-xl px-4">
+          <h3
+            className="font-hand text-3xl md:text-4xl text-blush-500 mb-2"
+            style={{ fontWeight: 700 }}
+          >
             {cakeTitle}
           </h3>
-          <p className="font-body text-sm text-cream-500">Taking it to the party...</p>
+          <p className="font-body text-sm text-cream-500">
+            Taking it to the party...
+          </p>
         </div>
       ) : (
         <>
           {/* Frosting selection */}
-          <div className="w-full max-w-md mb-3">
-            <p className="font-hand text-xl text-sky-500 text-center mb-2" style={{ fontWeight: 600 }}>Choose your frosting</p>
+          <div className="w-full max-w-md mb-4">
+            <p
+              className="font-hand text-xl text-sky-500 text-center mb-2"
+              style={{ fontWeight: 600 }}
+            >
+              Choose your frosting
+            </p>
+
             <div className="flex justify-center gap-2 md:gap-3 flex-wrap">
               {frostingOptions.map((opt) => (
                 <button
                   key={opt.type}
                   onClick={() => setFrosting(opt.type)}
-                  className={`relative p-2 rounded-2xl transition-all duration-200 tap-target ${frosting === opt.type ? 'bg-cream-100 shadow-md scale-105' : 'bg-cream-50 hover:bg-cream-100'}`}
-                  style={{ border: `2px ${frosting === opt.type ? 'solid' : 'dashed'} ${frosting === opt.type ? '#e89aae' : '#e4dccc'}` }}
+                  className={`relative p-2 rounded-2xl transition-all duration-200 tap-target ${
+                    frosting === opt.type
+                      ? 'bg-cream-100 shadow-md scale-105'
+                      : 'bg-cream-50 hover:bg-cream-100'
+                  }`}
+                  style={{
+                    border: `2px ${
+                      frosting === opt.type ? 'solid' : 'dashed'
+                    } ${frosting === opt.type ? '#e89aae' : '#e4dccc'}`,
+                  }}
                 >
-                  <FrostingSample type={opt.type} className="w-12 h-10 md:w-14 md:h-12" />
-                  <span className="block font-hand text-sm text-cream-500 mt-1">{opt.label}</span>
+                  <FrostingSample
+                    type={opt.type}
+                    className="w-12 h-10 md:w-14 md:h-12"
+                  />
+                  <span className="block font-hand text-sm text-cream-500 mt-1">
+                    {opt.label}
+                  </span>
                 </button>
               ))}
             </div>
@@ -172,25 +232,42 @@ export function CakeDecoratingGame({ onComplete }: { onComplete: (cake: CakeStat
 
           {/* Topping selection */}
           <div className="w-full max-w-md mb-3">
-            <p className="font-hand text-xl text-sky-500 text-center mb-2" style={{ fontWeight: 600 }}>Pick a topping, then tap the cake!</p>
+            <p
+              className="font-hand text-xl text-sky-500 text-center mb-2"
+              style={{ fontWeight: 600 }}
+            >
+              Pick a topping, then tap the cake!
+            </p>
+
             <div className="flex justify-center gap-1 md:gap-2 flex-wrap">
               {toppingOptions.map((opt) => (
                 <button
                   key={opt.type}
                   onClick={() => setSelectedTopping(opt.type)}
-                  className={`relative p-2 rounded-full transition-all duration-200 tap-target ${selectedTopping === opt.type ? 'bg-cream-100 shadow-md scale-110' : 'bg-cream-50 hover:bg-cream-100'}`}
-                  style={{ border: `2px ${selectedTopping === opt.type ? 'solid' : 'dashed'} ${selectedTopping === opt.type ? '#e89aae' : '#e4dccc'}` }}
+                  className={`relative p-2 rounded-full transition-all duration-200 tap-target ${
+                    selectedTopping === opt.type
+                      ? 'bg-cream-100 shadow-md scale-110'
+                      : 'bg-cream-50 hover:bg-cream-100'
+                  }`}
+                  style={{
+                    border: `2px ${
+                      selectedTopping === opt.type ? 'solid' : 'dashed'
+                    } ${selectedTopping === opt.type ? '#e89aae' : '#e4dccc'}`,
+                  }}
                   title={opt.label}
                 >
-                  <ToppingIcon type={opt.type} className="w-7 h-7 md:w-8 md:h-8" />
+                  <ToppingIcon
+                    type={opt.type}
+                    className="w-7 h-7 md:w-8 md:h-8"
+                  />
                 </button>
               ))}
             </div>
           </div>
 
           {/* Action buttons */}
-          <div className="flex flex-col items-center gap-3 mt-2">
-            <div className="flex gap-3">
+          <div className="flex flex-col items-center gap-3 mt-3 mb-2">
+            <div className="flex justify-center gap-5">
               <button
                 onClick={handleUndo}
                 disabled={toppings.length === 0}
@@ -198,6 +275,7 @@ export function CakeDecoratingGame({ onComplete }: { onComplete: (cake: CakeStat
               >
                 Undo last
               </button>
+
               <button
                 onClick={handleClear}
                 disabled={toppings.length === 0}
@@ -206,6 +284,7 @@ export function CakeDecoratingGame({ onComplete }: { onComplete: (cake: CakeStat
                 Start over
               </button>
             </div>
+
             <FrostingButton variant="pink" size="lg" onClick={handlePresent}>
               Present My Cake
             </FrostingButton>
