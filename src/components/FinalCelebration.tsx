@@ -20,12 +20,12 @@ interface CakeState {
 }
 
 const giftPositions = [
-  { x: 10, y: 58, scale: 0.72, z: 3 },
-  { x: 80, y: 58, scale: 0.68, z: 3 },
-  { x: 4, y: 73, scale: 0.82, z: 5 },
-  { x: 84, y: 73, scale: 0.78, z: 5 },
-  { x: 22, y: 79, scale: 0.62, z: 4 },
-  { x: 69, y: 79, scale: 0.68, z: 4 },
+  { x: 17, y: 50, scale: 0.72, z: 3 },
+  { x: 75, y: 50, scale: 0.68, z: 3 },
+  { x: 12, y: 68, scale: 0.82, z: 5 },
+  { x: 80, y: 68, scale: 0.78, z: 5 },
+  { x: 25, y: 73, scale: 0.62, z: 4 },
+  { x: 66, y: 73, scale: 0.68, z: 4 },
 ];
 
 const balloonData = [
@@ -259,7 +259,7 @@ export function FinalCelebration({
       )}
 
       {/* Main celebration */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen pt-14 pb-8 px-4">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen pt-8 pb-8 px-4 -translate-y-3 md:-translate-y-5">
         <div
           className={`text-center transition-all duration-1000 ${
             celebrationReady
@@ -275,13 +275,13 @@ export function FinalCelebration({
           </p>
 
           <h1
-            className="font-hand text-5xl md:text-7xl lg:text-8xl text-blush-500 text-center mb-1 text-shadow-soft animate-bounce-in"
+            className="font-hand text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-blush-500 text-center mb-2 text-shadow-soft animate-bounce-in leading-tight"
             style={{
               fontWeight: 700,
               textShadow: '0 2px 8px rgba(0,0,0,0.1)',
             }}
           >
-            HAPPY BIRTHDAY!
+            HAPPY BIRTHDAY, FATIMA NUMAN!
           </h1>
 
           {cakeTitle && (
@@ -301,7 +301,7 @@ export function FinalCelebration({
               ? 'opacity-100 scale-100'
               : 'opacity-0 scale-95'
           }`}
-          style={{ height: 'min(58vh, 470px)' }}
+          style={{ height: 'min(52vh, 420px)' }}
         >
           {openedGifts.slice(0, 6).map((giftType, i) => {
             const pos = giftPositions[i];
@@ -333,7 +333,7 @@ export function FinalCelebration({
               cakeBounce ? 'animate-bounce-in' : 'animate-bob'
             }`}
             style={{
-              width: 'min(300px, 72%)',
+              width: 'min(285px, 68%)',
               zIndex: 10,
               animationDuration: '6s',
             }}
