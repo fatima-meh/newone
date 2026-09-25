@@ -274,15 +274,17 @@ export function FinalCelebration({
             The candles are out...
           </p>
 
-          <h1
-            className="font-hand text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-blush-500 text-center mb-2 text-shadow-soft animate-bounce-in leading-tight max-w-5xl"
-            style={{
-              fontWeight: 700,
-              textShadow: '0 2px 8px rgba(0,0,0,0.1)',
-            }}
-          >
-            HAPPY BIRTHDAY, FATIMA NUMAN!
-          </h1>
+          <div className="w-full min-h-screen flex items-center justify-center">
+  <h1
+    className="font-hand text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-blush-500 text-center text-shadow-soft animate-bounce-in leading-tight max-w-5xl mx-auto"
+    style={{
+      fontWeight: 700,
+      textShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    }}
+  >
+    HAPPY BIRTHDAY, FATIMA NUMAN!
+  </h1>
+</div>
 
           {cakeTitle && (
             <p
