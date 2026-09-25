@@ -20,7 +20,6 @@ const presentDefs: PresentDef[] = [
   { id: 3, color: '#d8c6ee', ribbonColor: '#fbe3b0', pattern: 'dots', giftType: 'phone' },
   { id: 4, color: '#f7d0da', ribbonColor: '#a8c5e6', pattern: 'stripes', giftType: 'chocolates' },
   { id: 5, color: '#c4d9ee', ribbonColor: '#f0b4c4', pattern: 'floral', giftType: 'headphones' },
-  { id: 6, color: '#ddeed0', ribbonColor: '#d8c6ee', pattern: 'dots', giftType: 'ultimate', isUltimate: true },
 ];
 
 export function MysteryPresentsGame({ onComplete }: { onComplete: (openedGifts: GiftType[]) => void }) {
